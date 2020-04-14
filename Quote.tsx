@@ -1,21 +1,25 @@
 import React from 'react';
 import { StyleSheet, Image, Text, View } from 'react-native';
-// import Image from 'react-native-scalable-image';
 
-export default class Quote extends React.Component {
+export interface Props {
+  text: string;
+  author: string;
+  backgroundUri?: string;
+}
+
+export default class Quote extends React.Component<Props> {
   constructor(props: any) {
     super(props);
   }
   render() {
-
     return (
       <View>
         <Image style={styles.image}
-          source={{ uri: 'https://www.freeimages.com/download/file/68c20c8051fa40166c784dbe4b2e7ffe/2048x1536' }} />
+          source={{ uri: this.props.backgroundUri }} />
         <View style={styles.darkener}></View>
         <View style={styles.quoteWrapper}>
-          <Text style={styles.quote}>Some inspirational quote</Text>
-          <Text style={styles.author}>Albert Einstein</Text>
+          <Text style={styles.quote}>{this.props.text}</Text>
+          <Text style={styles.author}>{this.props.author}</Text>
         </View>
       </View>
     );
@@ -37,7 +41,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: '#000000',
-    opacity: 0.7,
+    opacity: 0.55,
   },
   quoteWrapper: {
     position: 'absolute',

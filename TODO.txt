@@ -1,0 +1,10 @@
+
+store already read quotes
+improve performance for large quotes sets
+create datasource for quotes
+  https://www.thegoldenquotes.net/
+create datasource for backgrounds
+  https://www.freeimages.com/license
+attribution (images/quotes) : where to put them ?
+improve quote UI (fonts, sizes, depending on quote length etc..)
+improve ui and feel : fade in image, splash screen, transitions, hide buttons bar

@@ -3,4 +3,5 @@ export interface IQuote {
   author: string;
   attribution: string;
   hash: number;
+  backgroundUri: string;
 }

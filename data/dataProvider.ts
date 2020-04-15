@@ -1,28 +1,50 @@
+import { AsyncStorage } from 'react-native';
 import { IQuote } from './quote'
 import { IBackground } from './background';
 
 export class DataProvider {
 
+  public onlyShowUnseen: boolean = false;
   public allQuotes: IQuote[];
   public allBackgrounds: IBackground[];
 
   constructor() {
-    this.allQuotes = this.loadAllQuotes();
     this.allBackgrounds = require('./backgrounds.json');
+    this.allQuotes = [];
   }
 
-  loadAllQuotes = () : IQuote[] => {
-    var quotes: IQuote[] = require('./quotes.json'); 
-    // TODO filter already seen, take 20 randomly. When on last page on the swiper, show a button to load 20 more
+  private loadAllQuotes = () => {
+    var quotes: IQuote[] = require('./quotes.json');
     for (var i = 0; i < quotes.length; ++i) {
       quotes[i].hash = this.hashCode(quotes[i].text);
+      quotes[i].backgroundUri = this.getRandomBackground().uri;
     }
-
-    return quotes.slice(0,20);
+    return quotes;
   }
 
-  getRandomBackground = () : IBackground => {
+  private loadAllUnseenQuotes = async (): Promise<IQuote[]> => {
+    if (!this.allQuotes.length)
+      this.allQuotes = this.loadAllQuotes();
+
+    if (!this.onlyShowUnseen)
+      return this.allQuotes;
+
+    const alreadySeenQuotes = await this.getAlreadySeenQuotesIds();
+    const unseenQuotes = this.allQuotes.filter(function (item) {
+      return alreadySeenQuotes.indexOf(item.hash) === -1;
+    });
+
+    return unseenQuotes;
+  }
+
+  getRandomBackground = (): IBackground => {
     return this.allBackgrounds[Math.floor(Math.random() * this.allBackgrounds.length)];
+  }
+
+  getSomeQuotes = async (): Promise<IQuote[]> => {
+    const unseenQuotes = await this.loadAllUnseenQuotes();
+    return shuffle(unseenQuotes)
+      .slice(0, 3);
   }
 
   hashCode = (str: string) => {
@@ -34,4 +56,43 @@ export class DataProvider {
     }
     return hash;
   }
+
+  private getAlreadySeenQuotesIds = async (): Promise<number[]> => {
+    if (this.onlyShowUnseen) {
+      const value = await AsyncStorage.getItem('@Content:SeenQuotesIds');
+      if (value !== null) {
+        return JSON.parse(value);
+      }
+    }
+    return [];
+  }
+
+  setQuoteSeen = async (quote: IQuote) : Promise<void> => {
+    var ids = await AsyncStorage.getItem('@Content:SeenQuotesIds');
+    var arr = ids ? JSON.parse(ids) : [];
+    if (arr.indexOf(quote.hash) === -1)
+    {
+        arr.push(quote.hash);
+        AsyncStorage.setItem('@Content:SeenQuotesIds', JSON.stringify(arr));
+    }
+  }
+}
+
+function shuffle<T>(array: Array<T>) : Array<T> {
+  var currentIndex = array.length, temporaryValue, randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
 }

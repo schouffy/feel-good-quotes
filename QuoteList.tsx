@@ -48,7 +48,7 @@ export default class QuoteList extends React.Component<IProps, IState> {
   }
 
   async setCurrentQuoteSeen() {
-    // await this.dataProvider.setQuoteSeen(this.state.displayQuotes[this.currentPageIndex]);
+    await this.dataProvider.setQuoteSeen(this.state.displayQuotes[this.currentPageIndex]);
   }
 
   async loadMoreQuotes() {
@@ -59,12 +59,10 @@ export default class QuoteList extends React.Component<IProps, IState> {
   }
 
   render() {
-    console.log("QuoteList.render");
     const renderQuotes = this.state.displayQuotes.map((q: IQuote, key: number) => {
-      return <Quote key={key} text={q.text} author={q.author} backgroundUri={q.backgroundUri}></Quote>
+      return <Quote key={key} quote={q}></Quote>
     });
     const renderLoadMoreButton = (showButton: boolean) => {
-      console.log("renderLoadMoreButton " + showButton);
       if (showButton) {
         return (
           <View style={styles.loadMoreContainer}>

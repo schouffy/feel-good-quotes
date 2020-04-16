@@ -1,7 +1,9 @@
+import { IBackground } from './background';
+
 export interface IQuote {
   text: string;
   author: string;
   attribution: string;
   hash: number;
-  backgroundUri: string;
+  background: IBackground;
 }

@@ -1,19 +1,29 @@
-
 how to make it 100% legal ?
 https://vervante.com/blog/2019/02/fairuseguide
 https://en.wikiquote.org/wiki/Wikiquote:Public_domain_resource
 
-create datasource for quotes
-  https://www.thegoldenquotes.net/
-  ???
 create datasource for backgrounds
   https://www.freeimages.com/license
   https://www.freeimages.com/photo/view-of-the-sky-through-a-gap-in-the-rock-1639272
   https://www.publicdomainpictures.net/
 
-attribution (images/quotes) : where to put them ?
-improve quote UI (fonts, sizes, depending on quote length etc..)
-improve ui and feel : fade in image, splash screen, transitions, hide buttons bar
+create datasource for quotes
+  https://www.thegoldenquotes.net/
+  other apps and websites...
+
+improve ui and feel : fade in image, splash screen, transitions, hide buttons bar, loading screen when swiping too fast,..
   https://www.youtube.com/watch?time_continue=128&v=vzPmI0GCDPM&feature=emb_title
   dark theme & bars ? https://github.com/BhavanPatel/react-native-navbar-color
-  
+
+embed a few "default" gradient backgrounds in case user has no or bad connection
+
+
+V2
+monetize/donate
+favorites
+share
+add quotes to db
+
+V3
+drop expo ?
+own storage for images (and optimize their size) ?

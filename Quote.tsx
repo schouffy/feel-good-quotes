@@ -38,10 +38,11 @@ export default class Quote extends React.Component<Props> {
     return (
       <View>
         <Image style={styles.image}
-          source={{ uri: this.props.quote.background.uri }} />
+          source={{ uri: this.props.quote.background.uri }} blurRadius={0} />
+
         <View style={styles.darkener}></View>
         <View style={styles.quoteWrapper}>
-          <Text style={[styles.quote, { fontSize: fontSize, lineHeight: lineHeight }]}>“{this.props.quote.text}”</Text>
+          <Text style={[styles.quote, { fontSize: fontSize, lineHeight: lineHeight }]}>{this.props.quote.text}</Text>
           <Text style={styles.author}>- {this.props.quote.author}</Text>
 
           <Text style={styles.quoteAttribution}>{this.props.quote.attribution}</Text>
@@ -106,9 +107,8 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     color: '#ffffff',
-    opacity: 0.4,
+    opacity: 0.7,
     textAlign: "right",
-    fontSize: 12,
-
+    fontSize: 12
   },
 });

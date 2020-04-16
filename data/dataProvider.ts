@@ -5,7 +5,7 @@ import { IBackground } from './background';
 export class DataProvider {
 
   public onlyShowUnseen: boolean = false;
-  public quotesPageCount: number = 14;
+  public quotesPageCount: number = 20;
 
   public allQuotes: IQuote[];
   public allBackgrounds: IBackground[];
@@ -19,7 +19,6 @@ export class DataProvider {
     var quotes: IQuote[] = require('./quotes.json');
     for (var i = 0; i < quotes.length; ++i) {
       quotes[i].hash = this.hashCode(quotes[i].text);
-      quotes[i].background = this.getRandomBackground();
     }
     return quotes;
   }
@@ -40,13 +39,18 @@ export class DataProvider {
   }
 
   getRandomBackground = (): IBackground => {
-    return this.allBackgrounds[Math.floor(Math.random() * this.allBackgrounds.length)];
+    const index = Math.floor(Math.random() * this.allBackgrounds.length);
+    return this.allBackgrounds[index];
   }
 
   getSomeQuotes = async (): Promise<IQuote[]> => {
     const unseenQuotes = await this.loadAllUnseenQuotes();
-    return shuffle(unseenQuotes)
+    let someQuotes = shuffle(unseenQuotes)
       .slice(0, this.quotesPageCount);
+    for (var i = 0; i < someQuotes.length; ++i) {
+      someQuotes[i].background = this.getRandomBackground();
+    }
+    return someQuotes;
   }
 
   hashCode = (str: string) => {

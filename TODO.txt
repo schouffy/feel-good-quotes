@@ -1,7 +1,3 @@
-create datasource for backgrounds
-  https://www.freeimages.com/license
-  https://www.freeimages.com/photo/view-of-the-sky-through-a-gap-in-the-rock-1639272
-  https://www.publicdomainpictures.net/
 
 how to make it 100% legal ?
 https://vervante.com/blog/2019/02/fairuseguide
@@ -11,7 +7,8 @@ create datasource for quotes
   https://www.thegoldenquotes.net/
   other apps and websites...
 
-dynamic font
+better load more icon (on Quote, not QuoteList)
+dynamic font face
 loading screen when swiping too fast
 embed a few "default" gradient backgrounds in case user has no or bad connection
 
@@ -29,4 +26,3 @@ add quotes to db
 
 V3
 drop expo ?
-own storage for images (and optimize their size) ?

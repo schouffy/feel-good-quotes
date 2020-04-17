@@ -1,9 +1,11 @@
 import React from 'react';
-import { StyleSheet, Image, Text, View } from 'react-native';
+import { StyleSheet, Image, Text, View, TouchableOpacity } from 'react-native';
 import { IQuote } from './data/quote';
 
 export interface Props {
   quote: IQuote;
+  showLoadMoreButton: boolean;
+  onShowLoadMoreClick: any;
 }
 
 export default class Quote extends React.Component<Props> {
@@ -34,7 +36,6 @@ export default class Quote extends React.Component<Props> {
       fontSize = 16;
       lineHeight = 22;
     }
-
     return (
       <View>
         <Image style={styles.image}
@@ -44,10 +45,21 @@ export default class Quote extends React.Component<Props> {
         <View style={styles.quoteWrapper}>
           <Text style={[styles.quote, { fontSize: fontSize, lineHeight: lineHeight }]}>{this.props.quote.text}</Text>
           <Text style={styles.author}>- {this.props.quote.author}</Text>
-
           {/* <Text style={styles.quoteAttribution}>{this.props.quote.attribution}</Text> */}
+
           <Text style={styles.backgroundAttribution}>{this.props.quote.background.attribution}</Text>
         </View>
+
+        {(() => {
+            if (this.props.showLoadMoreButton) {
+              return (<View style={styles.loadMoreContainer}>
+                <TouchableOpacity onPress={this.props.onShowLoadMoreClick} style={styles.loadMoreButton}>
+                  <Image source={require('./assets/refresh.png')} style={styles.loadMoreIcon} />
+                  <Text style={styles.loadMoreText}>Load some more</Text>
+              </TouchableOpacity>
+              </View>)
+            }
+          })()}
       </View>
     );
   }
@@ -111,4 +123,22 @@ const styles = StyleSheet.create({
     textAlign: "right",
     fontSize: 12
   },
+  loadMoreContainer: {
+    position: 'absolute',
+    bottom: 80,
+    width: '100%',
+    alignItems: 'center',
+    opacity: 0.7,
+  },
+  loadMoreButton: {
+    alignItems: 'center',
+  },
+  loadMoreIcon: {
+    height: 60,
+    width: 60,
+  },
+  loadMoreText: {
+    marginTop: 10,
+    color: '#FFFFFF'
+  }
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import Swiper from 'react-native-swiper';
 import Quote from './Quote'
 import { IQuote } from './data/quote'
@@ -9,7 +9,6 @@ interface IProps {
 }
 interface IState {
   displayQuotes: IQuote[];
-  showLoadMoreQuotesButton: boolean;
 }
 
 export default class QuoteList extends React.Component<IProps, IState> {
@@ -22,7 +21,7 @@ export default class QuoteList extends React.Component<IProps, IState> {
     super(props);
     this.dataProvider = new DataProvider();
     this.currentPageIndex = 0;
-    this.state = { displayQuotes: [], showLoadMoreQuotesButton: false }
+    this.state = { displayQuotes: [] }
 
     this.onIndexChanged = this.onIndexChanged.bind(this);
     this.setCurrentQuoteSeen = this.setCurrentQuoteSeen.bind(this);
@@ -36,14 +35,6 @@ export default class QuoteList extends React.Component<IProps, IState> {
 
   async onIndexChanged(index: number) {
     this.currentPageIndex = index;
-    if (index == this.state.displayQuotes.length - 1) {
-      // last page : show a button to load more
-      this.setState({ showLoadMoreQuotesButton: true });
-    }
-    else if (this.state.showLoadMoreQuotesButton) {
-      // not last page : if the button was visible, hide it
-      this.setState({ showLoadMoreQuotesButton: false });
-    }
     await this.setCurrentQuoteSeen();
   }
 
@@ -51,7 +42,7 @@ export default class QuoteList extends React.Component<IProps, IState> {
     await this.dataProvider.setQuoteSeen(this.state.displayQuotes[this.currentPageIndex]);
   }
 
-  async loadMoreQuotes() {
+  async loadMoreQuotes(event: MouseEvent) {
     const newQuotes = await this.dataProvider.getSomeQuotes();
     this.swiper.scrollBy(-this.currentPageIndex, false);
     this.currentPageIndex = 0;
@@ -60,36 +51,44 @@ export default class QuoteList extends React.Component<IProps, IState> {
 
   render() {
     const renderQuotes = this.state.displayQuotes.map((q: IQuote, key: number) => {
-      return <Quote key={key} quote={q}></Quote>
+      return <Quote key={key} quote={q} 
+        showLoadMoreButton={key === this.state.displayQuotes.length - 1}
+        onShowLoadMoreClick={this.loadMoreQuotes} ></Quote>
     });
-    const renderLoadMoreButton = (showButton: boolean) => {
-      if (showButton) {
-        return (
-          <View style={styles.loadMoreContainer}>
-            <Button title="Load more quotes"  onPress={this.loadMoreQuotes}></Button>
-          </View>
-        )
-      }
+
+    const renderLoader = () => {
+      return (<View style={styles.loader}>
+          <ActivityIndicator size='large' color='#999999' ></ActivityIndicator>
+          <Text style={styles.loaderText}>Patience is bitter, but its fruit is sweet - Aristotle</Text>
+        </View>)
     }
     return (
       <View style={{flex:1}}>
         <Swiper showsPagination={false} loadMinimal={true} loadMinimalSize={2} loop={false}
-          onIndexChanged={this.onIndexChanged} ref={component => this.swiper = component}>
+          onIndexChanged={this.onIndexChanged} ref={component => this.swiper = component} loadMinimalLoader={renderLoader()}>
           {renderQuotes}
         </Swiper>
-        {renderLoadMoreButton(this.state.showLoadMoreQuotesButton)}
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  loadMoreContainer: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    bottom: 20,
-    padding: 30,
-    flex: 1
+  loader: {
+    flex: 1,
+    height: '100%',
+    width: '100%',
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 20
+    
+  },
+  loaderText: {
+    color: 'white',
+    opacity: 0.5,
+    fontSize: 16,
+    marginTop: 10,
+    textAlign: 'center'
   }
 });

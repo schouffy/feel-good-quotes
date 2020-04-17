@@ -1,14 +1,15 @@
 
 
-loading screen when swiping too fast
-embed a few "default" gradient backgrounds in case user has no or bad connection
-better load more icon (on Quote, not QuoteList)
-
-
-improve ui and feel : fade in image, splash screen, transitions (on load more click among other things), do not load image if already visible (leave default gradient in this case) ?
-  https://www.youtube.com/watch?time_continue=128&v=vzPmI0GCDPM&feature=emb_title
-
 package/publish
+splash screen
+
+
+improve ui and feel : 
+  fade in image, https://www.youtube.com/watch?time_continue=128&v=vzPmI0GCDPM&feature=emb_title
+  transitions (on load more click among other things),
+  do not load image if already visible (leave default gradient in this case) ?
+  embed a few "default" gradient backgrounds in case user has no or bad connection
+  
 
 V2
 monetize/donate

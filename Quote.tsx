@@ -45,7 +45,7 @@ export default class Quote extends React.Component<Props> {
           <Text style={[styles.quote, { fontSize: fontSize, lineHeight: lineHeight }]}>{this.props.quote.text}</Text>
           <Text style={styles.author}>- {this.props.quote.author}</Text>
 
-          <Text style={styles.quoteAttribution}>{this.props.quote.attribution}</Text>
+          {/* <Text style={styles.quoteAttribution}>{this.props.quote.attribution}</Text> */}
           <Text style={styles.backgroundAttribution}>{this.props.quote.background.attribution}</Text>
         </View>
       </View>

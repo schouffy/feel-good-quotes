@@ -1,7 +1,10 @@
 
-
-package/publish
 splash screen
+icon
+  https://thenounproject.com/term/motivation/1110005/
+package/publish
+  https://docs.expo.io/versions/latest/distribution/building-standalone-apps/
+
 
 
 improve ui and feel : 

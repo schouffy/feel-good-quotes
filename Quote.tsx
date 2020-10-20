@@ -36,6 +36,11 @@ export default class Quote extends React.Component<Props> {
       fontSize = 16;
       lineHeight = 22;
     }
+
+    let author = this.props.quote.author;
+    if (!author)
+      author = "Author unknown";
+
     return (
       <View>
         <Image style={styles.image}
@@ -44,7 +49,7 @@ export default class Quote extends React.Component<Props> {
         <View style={styles.darkener}></View>
         <View style={styles.quoteWrapper}>
           <Text style={[styles.quote, { fontSize: fontSize, lineHeight: lineHeight }]}>{this.props.quote.text}</Text>
-          <Text style={styles.author}>- {this.props.quote.author}</Text>
+          <Text style={styles.author}>- {author}</Text>
           {/* <Text style={styles.quoteAttribution}>{this.props.quote.attribution}</Text> */}
 
           <Text style={styles.backgroundAttribution}>{this.props.quote.background.attribution}</Text>

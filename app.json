@@ -1,13 +1,13 @@
 {
   "expo": {
-    "name": "FeelGoodQuotes",
-    "slug": "FeelGoodQuotes",
+    "name": "motivation-quotes",
+    "slug": "motivation-quotes",
     "platforms": [
       "ios",
       "android",
       "web"
     ],
-    "version": "1.0.0",
+    "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -27,6 +27,11 @@
     "androidNavigationBar": {
       "barStyle": "light-content",
       "backgroundColor": "#000000"
+    },
+    "android": {
+      "package": "com.schouffy.motivationquotes",
+      "versionCode": 2,
+      "permissions": []
     }
   }
 }

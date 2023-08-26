@@ -1,19 +1,34 @@
 {
   "expo": {
-    "name": "motivation-quotes",
+    "name": "Motivation Quotes",
+    "description": "Some motivational, inspiring, feel-good quotes. No ads, no cluttered interface.",
     "slug": "motivation-quotes",
+    "backgroundColor": "#000000",
+    "privacy": "unlisted",
     "platforms": [
-      "ios",
-      "android",
-      "web"
+      "android"
     ],
+    "android": {
+      "package": "com.schouffy.motivationquotes",
+      "versionCode": 3,
+      "permissions": [],
+      "splash": {
+        "mdpi": "./assets/splash-mdpi.png",
+        "hdpi": "./assets/splash-hdpi.png",
+        "xhdpi": "./assets/splash-xhdpi.png",
+        "xxhdpi": "./assets/splash-xxhdpi.png",
+        "xxxhdpi": "./assets/splash-xxxhdpi.png",
+        "resizeMode": "contain",
+        "backgroundColor": "#f59a1e"
+      }
+    },
     "version": "1.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "cover",
-      "backgroundColor": "#fcbd18"
+      "backgroundColor": "#f59a1e"
     },
     "updates": {
       "fallbackToCacheTimeout": 0
@@ -28,10 +43,17 @@
       "barStyle": "light-content",
       "backgroundColor": "#000000"
     },
-    "android": {
-      "package": "com.schouffy.motivationquotes",
-      "versionCode": 2,
-      "permissions": []
-    }
+    "plugins": [
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "compileSdkVersion": 34,
+            "targetSdkVersion": 34,
+            "buildToolsVersion": "34.0.0"
+          }
+        }
+      ]
+    ]
   }
 }

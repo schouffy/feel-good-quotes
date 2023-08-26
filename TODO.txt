@@ -15,10 +15,11 @@ improve ui and feel :
   
 
 V2
-monetize/donate
+better font
 favorites
-share
 add quotes to db
+monetize/donate
+share
 dynamic font face ?
 
 V3
